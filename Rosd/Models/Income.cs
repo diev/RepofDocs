@@ -1,4 +1,6 @@
-﻿namespace Rosd.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Rosd.Models;
 
 /// <summary>
 /// Запись по журналу входящих
@@ -6,14 +8,15 @@
 public class Income
 {
     /// <summary>
-    /// Идентификатор документа
+    /// Идентификатор записи
     /// </summary>
     public Guid Id { get; set; } // = Guid.NewGuid();
 
     /// <summary>
     /// Дата первичного поступления
     /// </summary>
-    public DateTime? IncDate { get; set; }
+    [DataType(DataType.Date)]
+    public DateTime? IncDate { get; set; } // DateOnly in NET 6.0
 
     /// <summary>
     /// Номер первичного поступления
@@ -33,6 +36,7 @@ public class Income
     /// <summary>
     /// Входящая дата по журналу
     /// </summary>
+    [DataType(DataType.Date)]
     public DateTime? Date { get; set; }
 
     /// <summary>
@@ -48,6 +52,7 @@ public class Income
     /// <summary>
     /// Исходящая дата документа отправителя
     /// </summary>
+    [DataType(DataType.Date)]
     public DateTime? DocDate { get; set; }
 
     /// <summary>
@@ -63,27 +68,12 @@ public class Income
     /// <summary>
     /// Какими лицами интересуется отправитель
     /// </summary>
-    public List<string>? AttnTo { get; set; }
-
-    /// <summary>
-    /// Какими ИНН интересуется отправитель
-    /// </summary>
-    public List<string>? AttnINN { get; set; }
-
-    /// <summary>
-    /// Какими днями рождения интересуется отправитель
-    /// </summary>
-    public List<DateTime>? AttnBirth { get; set; }
-
-    /// <summary>
-    /// Какими СНИЛС интересуется отправитель
-    /// </summary>
-    public List<string>? AttnSnils { get; set; }
+    public string? AttnTo { get; set; }
 
     /// <summary>
     /// Вложенные документы отправителя
     /// </summary>
-    public List<Doc>? Attachments { get; set; }
+    public ICollection<Doc>? Docs { get; set; }
 
     /// <summary>
     /// Ответственный исполнитель
@@ -96,7 +86,7 @@ public class Income
     public string? Note { get; set; }
 
     /// <summary>
-    /// Связанные исходящие документы
+    /// Связанные записи в журнале исходящих
     /// </summary>
     public ICollection<Outcome>? Outcomes { get; set; }
 }

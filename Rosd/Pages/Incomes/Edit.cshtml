@@ -1,0 +1,95 @@
+﻿@page
+@model Rosd.Pages.Incomes.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Income</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Income.Id" />
+            <div class="form-group">
+                <label asp-for="Income.IncDate" class="control-label"></label>
+                <input asp-for="Income.IncDate" class="form-control" />
+                <span asp-validation-for="Income.IncDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Income.IncNum" class="control-label"></label>
+                <input asp-for="Income.IncNum" class="form-control" />
+                <span asp-validation-for="Income.IncNum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Income.IncPerson" class="control-label"></label>
+                <input asp-for="Income.IncPerson" class="form-control" />
+                <span asp-validation-for="Income.IncPerson" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Income.Way" class="control-label"></label>
+                <input asp-for="Income.Way" class="form-control" />
+                <span asp-validation-for="Income.Way" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Income.Date" class="control-label"></label>
+                <input asp-for="Income.Date" class="form-control" />
+                <span asp-validation-for="Income.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Income.Num" class="control-label"></label>
+                <input asp-for="Income.Num" class="form-control" />
+                <span asp-validation-for="Income.Num" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Income.DocFrom" class="control-label"></label>
+                <input asp-for="Income.DocFrom" class="form-control" />
+                <span asp-validation-for="Income.DocFrom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Income.DocDate" class="control-label"></label>
+                <input asp-for="Income.DocDate" class="form-control" />
+                <span asp-validation-for="Income.DocDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Income.DocNum" class="control-label"></label>
+                <input asp-for="Income.DocNum" class="form-control" />
+                <span asp-validation-for="Income.DocNum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Income.Subject" class="control-label"></label>
+                <input asp-for="Income.Subject" class="form-control" />
+                <span asp-validation-for="Income.Subject" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Income.AttnTo" class="control-label"></label>
+                <input asp-for="Income.AttnTo" class="form-control" />
+                <span asp-validation-for="Income.AttnTo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Income.Person" class="control-label"></label>
+                <input asp-for="Income.Person" class="form-control" />
+                <span asp-validation-for="Income.Person" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Income.Note" class="control-label"></label>
+                <input asp-for="Income.Note" class="form-control" />
+                <span asp-validation-for="Income.Note" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

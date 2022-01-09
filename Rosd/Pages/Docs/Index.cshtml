@@ -1,0 +1,102 @@
+﻿@page
+@model Rosd.Pages.Docs.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Doc[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doc[0].Ext)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doc[0].Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doc[0].Hash)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doc[0].Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doc[0].Note)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doc[0].IsDeleted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doc[0].IsPriority)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doc[0].IsSecured)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doc[0].IsCompessed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doc[0].IsArchive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Doc[0].IsContainer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Doc) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ext)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hash)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Note)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDeleted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsPriority)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsSecured)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsCompessed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsArchive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsContainer)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

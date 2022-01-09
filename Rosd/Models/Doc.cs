@@ -21,7 +21,7 @@ public class Doc
     public string? Ext { get; set; }
 
     /// <summary>
-    /// Дата изменения файла документа
+    /// Дата/время изменения файла документа
     /// </summary>
     public DateTime? Date { get; set; }
 
@@ -84,7 +84,7 @@ public class Doc
     /// <summary>
     /// Вложенные документы (в эту папку или архив)
     /// </summary>
-    public ICollection<Doc>? Attachments { get; set; }
+    public ICollection<Doc>? Docs { get; set; }
 
     /// <summary>
     /// Связанные записи по журналу входящих

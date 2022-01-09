@@ -1,4 +1,6 @@
-﻿namespace Rosd.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Rosd.Models;
 
 /// <summary>
 /// Запись по журналу исходящих
@@ -6,27 +8,30 @@
 public class Outcome
 {
     /// <summary>
-    /// Идентификатор документа
+    /// Идентификатор записи
     /// </summary>
     public Guid Id { get; set; } // = Guid.NewGuid();
 
     /// <summary>
     /// Срок начала подготовки ответа
     /// </summary>
-    public DateTime? AttnDate { get; set; }
+    [DataType(DataType.Date)]
+    public DateTime? AttnDate { get; set; } // DateOnly in NET 6.0
 
     /// <summary>
     /// Срок ответа
     /// </summary>
+    [DataType(DataType.Date)]
     public DateTime? DueDate { get; set; }
 
     /// <summary>
-    /// Дата исходящего документа по журналу
+    /// Дата исходящей записи по журналу
     /// </summary>
+    [DataType(DataType.Date)]
     public DateTime? Date { get; set; }
 
     /// <summary>
-    /// Номер исходящего документа по журналу
+    /// Номер исходящей записи по журналу
     /// </summary>
     public string Num { get; set; } = "б/н";
 
@@ -48,7 +53,7 @@ public class Outcome
     /// <summary>
     /// Вложенные документы для получателя
     /// </summary>
-    public List<Doc>? Attachments { get; set; }
+    public ICollection<Doc>? Docs { get; set; }
 
     /// <summary>
     /// Ответственный исполнитель
@@ -61,7 +66,7 @@ public class Outcome
     public string? Note { get; set; }
 
     /// <summary>
-    /// Связанные входящие документы
+    /// Связанные записи в журнале входящих
     /// </summary>
     public ICollection<Income>? Incomes { get; set; }
 }

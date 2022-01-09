@@ -1,0 +1,79 @@
+﻿@page
+@model Rosd.Pages.Outcomes.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Outcome</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Outcome.Id" class="control-label"></label>
+                <input asp-for="Outcome.Id" class="form-control" />
+                <span asp-validation-for="Outcome.Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Outcome.AttnDate" class="control-label"></label>
+                <input asp-for="Outcome.AttnDate" class="form-control" />
+                <span asp-validation-for="Outcome.AttnDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Outcome.DueDate" class="control-label"></label>
+                <input asp-for="Outcome.DueDate" class="form-control" />
+                <span asp-validation-for="Outcome.DueDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Outcome.Date" class="control-label"></label>
+                <input asp-for="Outcome.Date" class="form-control" />
+                <span asp-validation-for="Outcome.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Outcome.Num" class="control-label"></label>
+                <input asp-for="Outcome.Num" class="form-control" />
+                <span asp-validation-for="Outcome.Num" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Outcome.Way" class="control-label"></label>
+                <input asp-for="Outcome.Way" class="form-control" />
+                <span asp-validation-for="Outcome.Way" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Outcome.RepTo" class="control-label"></label>
+                <input asp-for="Outcome.RepTo" class="form-control" />
+                <span asp-validation-for="Outcome.RepTo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Outcome.Subject" class="control-label"></label>
+                <input asp-for="Outcome.Subject" class="form-control" />
+                <span asp-validation-for="Outcome.Subject" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Outcome.Person" class="control-label"></label>
+                <input asp-for="Outcome.Person" class="form-control" />
+                <span asp-validation-for="Outcome.Person" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Outcome.Note" class="control-label"></label>
+                <input asp-for="Outcome.Note" class="form-control" />
+                <span asp-validation-for="Outcome.Note" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

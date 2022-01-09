@@ -1,0 +1,91 @@
+﻿@page
+@model Rosd.Pages.Docs.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Doc</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doc.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doc.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doc.Ext)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doc.Ext)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doc.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doc.Date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doc.Hash)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doc.Hash)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doc.Content)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doc.Content)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doc.Note)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doc.Note)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doc.IsDeleted)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doc.IsDeleted)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doc.IsPriority)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doc.IsPriority)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doc.IsSecured)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doc.IsSecured)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doc.IsCompessed)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doc.IsCompessed)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doc.IsArchive)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doc.IsArchive)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Doc.IsContainer)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doc.IsContainer)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Doc.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
