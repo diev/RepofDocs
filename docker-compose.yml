@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  rosd:
+    image: ${DOCKER_REGISTRY-}rosd
+    build:
+      context: .
+      dockerfile: Rosd/Dockerfile
