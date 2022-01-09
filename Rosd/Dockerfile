@@ -11,6 +11,9 @@ COPY ["Rosd/Rosd.csproj", "Rosd/"]
 RUN dotnet restore "Rosd/Rosd.csproj"
 COPY . .
 WORKDIR "/src/Rosd"
+RUN dotnet tool install --global dotnet-ef
+#RUN dotnet ef migrations add <migration name>
+#RUN dotnet ef database update
 RUN dotnet build "Rosd.csproj" -c Release -o /app/build
 
 FROM build AS publish

@@ -352,3 +352,4 @@ MigrationBackup/
 # PostgreSQL data
 pgadmin/
 pgdata/
+**/Migrations/
