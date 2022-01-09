@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 using Rosd.Data;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args); // If exception here, disable docker-compose V2 and rebuild the solution.
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
