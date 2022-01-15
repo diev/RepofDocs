@@ -6,7 +6,13 @@ namespace Rosd.Wpf.Data;
 
 public class TrackContext : DbContext
 {
-    public DbSet<Track>? Tracks { get; set; }
+    public DbSet<TrackItem> TrackItems { get; set; } = null!;
+    public DbSet<AttnItem> AttnItems { get; set; } = null!;
+    public DbSet<PersonItem> PersonItems { get; set; } = null!;
+    public DbSet<TitleItem> TitleItems { get; set; } = null!;
+    public DbSet<ViaItem> ViaItems { get; set; } = null!;
+    public DbSet<LastTaken> LastTaken { get; set; } = null!;
+
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

@@ -5,9 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rosd.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded" Closing="Window_Closing">
     <Window.Resources>
         <CollectionViewSource x:Key="trackViewSource"/>
+        <CollectionViewSource x:Key="attnViewSource"/>
+        <CollectionViewSource x:Key="personViewSource"/>
+        <CollectionViewSource x:Key="titleViewSource"/>
+        <CollectionViewSource x:Key="viaViewSource"/>
     </Window.Resources>
     <Grid>
         <TabControl x:Name="tabControl">
@@ -25,13 +29,29 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Дата" Binding="{Binding IDate}"/>
                             <DataGridTextColumn Header="N" Binding="{Binding INo}"/>
-                            <DataGridTextColumn Header="Кто принес" Binding="{Binding Way}"/>
-                            <DataGridTextColumn Header="Отправитель" Binding="{Binding Sender}"/>
-                            <DataGridTextColumn Header="Адресат" Binding="{Binding Attn}"/>
+                            <DataGridComboBoxColumn Header="Кто принес" 
+                                                    ItemsSource="{Binding Source={StaticResource viaViewSource}}" 
+                                                    DisplayMemberPath="Name" 
+                                                    SelectedValuePath="Id" 
+                                                    SelectedValueBinding="{Binding ViaId}"/>
+                            <DataGridComboBoxColumn Header="Отправитель" 
+                                                    ItemsSource="{Binding Source={StaticResource titleViewSource}}" 
+                                                    DisplayMemberPath="Name" 
+                                                    SelectedValuePath="Id" 
+                                                    SelectedValueBinding="{Binding SenderId}"/>
+                            <DataGridComboBoxColumn Header="Адресат" 
+                                                    ItemsSource="{Binding Source={StaticResource attnViewSource}}" 
+                                                    DisplayMemberPath="Name" 
+                                                    SelectedValuePath="Id" 
+                                                    SelectedValueBinding="{Binding AttnId}"/>
                             <DataGridTextColumn Header="Клиент" Binding="{Binding Client}"/>
                             <DataGridTextColumn Header="ИНН" Binding="{Binding INN}"/>
                             <DataGridTextColumn Header="Содержание" Binding="{Binding Content}"/>
-                            <DataGridTextColumn Header="Кому отдали" Binding="{Binding Person}"/>
+                            <DataGridComboBoxColumn Header="Кому отдали" 
+                                                    ItemsSource="{Binding Source={StaticResource personViewSource}}" 
+                                                    DisplayMemberPath="Name" 
+                                                    SelectedValuePath="Id" 
+                                                    SelectedValueBinding="{Binding PersonId}"/>
                             <DataGridTextColumn Header="Вх.дата" Binding="{Binding JDate}"/>
                             <DataGridTextColumn Header="Вх.N" Binding="{Binding JNo}"/>
                         </DataGrid.Columns>
@@ -54,13 +74,25 @@
                             <DataGridTextColumn Header="Вх.N" Binding="{Binding JNo}"/>
                             <DataGridTextColumn Header="Дата док." Binding="{Binding SenderDate}"/>
                             <DataGridTextColumn Header="N док." Binding="{Binding SenderNo}"/>
-                            <DataGridTextColumn Header="Отправитель" Binding="{Binding Sender}"/>
-                            <DataGridTextColumn Header="Адресат" Binding="{Binding Attn}"/>
+                            <DataGridComboBoxColumn Header="Отправитель" 
+                                                    ItemsSource="{Binding Source={StaticResource titleViewSource}}" 
+                                                    DisplayMemberPath="Name" 
+                                                    SelectedValuePath="Id" 
+                                                    SelectedValueBinding="{Binding SenderId}"/>
+                            <DataGridComboBoxColumn Header="Адресат" 
+                                                    ItemsSource="{Binding Source={StaticResource attnViewSource}}" 
+                                                    DisplayMemberPath="Name" 
+                                                    SelectedValuePath="Id" 
+                                                    SelectedValueBinding="{Binding AttnId}"/>
                             <DataGridTextColumn Header="Клиент" Binding="{Binding Client}"/>
                             <DataGridTextColumn Header="ИНН" Binding="{Binding INN}"/>
                             <DataGridTextColumn Header="Содержание" Binding="{Binding Content}"/>
                             <DataGridTextColumn Header="Примечание" Binding="{Binding Notes}"/>
-                            <DataGridTextColumn Header="Исполнитель" Binding="{Binding Person}"/>
+                            <DataGridComboBoxColumn Header="Исполнитель" 
+                                                    ItemsSource="{Binding Source={StaticResource personViewSource}}" 
+                                                    DisplayMemberPath="Name" 
+                                                    SelectedValuePath="Id" 
+                                                    SelectedValueBinding="{Binding PersonId}"/>
                             <DataGridTextColumn Header="Срок отв." Binding="{Binding RDate}"/>
                             <DataGridTextColumn Header="Исх.дата" Binding="{Binding ODate}"/>
                             <DataGridTextColumn Header="Исх.N" Binding="{Binding ONo}"/>
@@ -85,13 +117,25 @@
                             <DataGridTextColumn Header="Вх.N" Binding="{Binding JNo}"/>
                             <DataGridTextColumn Header="Дата док." Binding="{Binding SenderDate}"/>
                             <DataGridTextColumn Header="N док." Binding="{Binding SenderNo}"/>
-                            <DataGridTextColumn Header="Отправитель" Binding="{Binding Sender}"/>
-                            <DataGridTextColumn Header="Адресат" Binding="{Binding Attn}"/>
+                            <DataGridComboBoxColumn Header="Отправитель" 
+                                                    ItemsSource="{Binding Source={StaticResource titleViewSource}}" 
+                                                    DisplayMemberPath="Name" 
+                                                    SelectedValuePath="Id" 
+                                                    SelectedValueBinding="{Binding SenderId}"/>
+                            <DataGridComboBoxColumn Header="Адресат" 
+                                                    ItemsSource="{Binding Source={StaticResource attnViewSource}}" 
+                                                    DisplayMemberPath="Name" 
+                                                    SelectedValuePath="Id" 
+                                                    SelectedValueBinding="{Binding AttnId}"/>
                             <DataGridTextColumn Header="Клиент" Binding="{Binding Client}"/>
                             <DataGridTextColumn Header="ИНН" Binding="{Binding INN}"/>
                             <DataGridTextColumn Header="Содержание" Binding="{Binding Content}"/>
                             <DataGridTextColumn Header="Примечание" Binding="{Binding Notes}"/>
-                            <DataGridTextColumn Header="Исполнитель" Binding="{Binding Person}"/>
+                            <DataGridComboBoxColumn Header="Исполнитель" 
+                                                    ItemsSource="{Binding Source={StaticResource personViewSource}}" 
+                                                    DisplayMemberPath="Name" 
+                                                    SelectedValuePath="Id" 
+                                                    SelectedValueBinding="{Binding PersonId}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem.Content>
