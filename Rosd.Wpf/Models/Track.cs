@@ -1,9 +1,12 @@
-﻿namespace Rosd.Wpf.Models;
+﻿using System;
+
+namespace Rosd.Wpf.Models;
 
 public class Track
 {
     public int Id { get; set; }
-    public string? IDateNo { get; set; }
+    public DateOnly? IDate { get; set; }
+    public int INo { get; set; }
     public Way? Way { get; set; }
     public Title? Sender { get; set; }
     public string? SendDate { get; set; }
@@ -14,9 +17,11 @@ public class Track
     public string? Content { get; set; }
     public Person? Person { get; set; }
     public string? Notes { get; set; }
-    public string? JDateNo { get; set; }
-    public string? RDate { get; set; }
-    public string? ODateNo { get; set; }
+    public DateOnly? JDate { get; set; }
+    public string? JNo { get; set; }
+    public DateOnly? RDate { get; set; }
+    public DateOnly? ODate { get; set; }
+    public string? ONo { get; set; }
     public Title? Receiver { get; set; }
     public string? Subject { get; set; }
 }

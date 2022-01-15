@@ -6,7 +6,119 @@
         xmlns:local="clr-namespace:Rosd.Wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <CollectionViewSource x:Key="trackViewSource"/>
+    </Window.Resources>
     <Grid>
-
+        <TabControl x:Name="tabControl">
+            <TabItem Name="inBox">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Конверты"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <DataGrid x:Name="inGrid"
+                              AutoGenerateColumns="False"
+                              EnableRowVirtualization="True"
+                              ItemsSource="{Binding Source={StaticResource trackViewSource}}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Дата" Binding="{Binding IDate}"/>
+                            <DataGridTextColumn Header="N" Binding="{Binding INo}"/>
+                            <DataGridTextColumn Header="Кто принес" Binding="{Binding Way}"/>
+                            <DataGridTextColumn Header="Отправитель" Binding="{Binding Sender}"/>
+                            <DataGridTextColumn Header="Адресат" Binding="{Binding Attn}"/>
+                            <DataGridTextColumn Header="Клиент" Binding="{Binding Client}"/>
+                            <DataGridTextColumn Header="ИНН" Binding="{Binding INN}"/>
+                            <DataGridTextColumn Header="Содержание" Binding="{Binding Content}"/>
+                            <DataGridTextColumn Header="Кому отдали" Binding="{Binding Person}"/>
+                            <DataGridTextColumn Header="Вх.дата" Binding="{Binding JDate}"/>
+                            <DataGridTextColumn Header="Вх.N" Binding="{Binding JNo}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Name="jrlBox">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Входящие"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <DataGrid x:Name="jrlGrid"
+                              AutoGenerateColumns="False"
+                              EnableRowVirtualization="True"
+                              ItemsSource="{Binding Source={StaticResource trackViewSource}}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Вх.дата" Binding="{Binding JDate}"/>
+                            <DataGridTextColumn Header="Вх.N" Binding="{Binding JNo}"/>
+                            <DataGridTextColumn Header="Дата док." Binding="{Binding SenderDate}"/>
+                            <DataGridTextColumn Header="N док." Binding="{Binding SenderNo}"/>
+                            <DataGridTextColumn Header="Отправитель" Binding="{Binding Sender}"/>
+                            <DataGridTextColumn Header="Адресат" Binding="{Binding Attn}"/>
+                            <DataGridTextColumn Header="Клиент" Binding="{Binding Client}"/>
+                            <DataGridTextColumn Header="ИНН" Binding="{Binding INN}"/>
+                            <DataGridTextColumn Header="Содержание" Binding="{Binding Content}"/>
+                            <DataGridTextColumn Header="Примечание" Binding="{Binding Notes}"/>
+                            <DataGridTextColumn Header="Исполнитель" Binding="{Binding Person}"/>
+                            <DataGridTextColumn Header="Срок отв." Binding="{Binding RDate}"/>
+                            <DataGridTextColumn Header="Исх.дата" Binding="{Binding ODate}"/>
+                            <DataGridTextColumn Header="Исх.N" Binding="{Binding ONo}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Name="waitBox">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Сроки"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <DataGrid x:Name="waitGrid"
+                              AutoGenerateColumns="False"
+                              EnableRowVirtualization="True"
+                              ItemsSource="{Binding Source={StaticResource trackViewSource}}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Срок отв." Binding="{Binding RDate}"/>
+                            <DataGridTextColumn Header="Вх.дата" Binding="{Binding JDate}"/>
+                            <DataGridTextColumn Header="Вх.N" Binding="{Binding JNo}"/>
+                            <DataGridTextColumn Header="Дата док." Binding="{Binding SenderDate}"/>
+                            <DataGridTextColumn Header="N док." Binding="{Binding SenderNo}"/>
+                            <DataGridTextColumn Header="Отправитель" Binding="{Binding Sender}"/>
+                            <DataGridTextColumn Header="Адресат" Binding="{Binding Attn}"/>
+                            <DataGridTextColumn Header="Клиент" Binding="{Binding Client}"/>
+                            <DataGridTextColumn Header="ИНН" Binding="{Binding INN}"/>
+                            <DataGridTextColumn Header="Содержание" Binding="{Binding Content}"/>
+                            <DataGridTextColumn Header="Примечание" Binding="{Binding Notes}"/>
+                            <DataGridTextColumn Header="Исполнитель" Binding="{Binding Person}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Name="outBox">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Исходящие"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <DataGrid x:Name="outGrid"
+                              AutoGenerateColumns="False"
+                              EnableRowVirtualization="True"
+                              ItemsSource="{Binding Source={StaticResource trackViewSource}}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Исх.дата" Binding="{Binding ODate}"/>
+                            <DataGridTextColumn Header="Исх.N" Binding="{Binding ONo}"/>
+                            <DataGridTextColumn Header="Кому" Binding="{Binding Receiver}"/>
+                            <DataGridTextColumn Header="Тема" Binding="{Binding Subject}"/>
+                            <DataGridTextColumn Header="Исполнитель" Binding="{Binding Person}"/>
+                            <DataGridTextColumn Header="Вх.дата" Binding="{Binding JData}"/>
+                            <DataGridTextColumn Header="Вх.N" Binding="{Binding JNo}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem.Content>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
