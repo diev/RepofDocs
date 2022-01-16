@@ -43,17 +43,20 @@
                 <TabItem.Content>
                     <DataGrid x:Name="inGrid"
                               AutoGenerateColumns="False"
+                              AlternatingRowBackground="LightGray" 
+                              HorizontalGridLinesBrush="LightGray" 
+                              VerticalGridLinesBrush="LightGray"
                               EnableRowVirtualization="True"
                               ItemsSource="{Binding Source={StaticResource inTrackViewSource}}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Дата" Binding="{Binding IDate}"/>
                             <DataGridTextColumn Header="N" Binding="{Binding INo}"/>
                             <DataGridTextColumn Header="Кто принес" Binding="{Binding Via}"/>
-                            <DataGridTextColumn Header="Отправитель" Binding="{Binding Sender}"/>
+                            <DataGridTextColumn Header="Отправитель" Binding="{Binding Sender}" Width="200"/>
                             <DataGridTextColumn Header="Адресат" Binding="{Binding Attn}"/>
                             <DataGridTextColumn Header="Клиент" Binding="{Binding Client}"/>
                             <DataGridTextColumn Header="ИНН" Binding="{Binding INN}"/>
-                            <DataGridTextColumn Header="Содержание" Binding="{Binding Content}"/>
+                            <DataGridTextColumn Header="Содержание" Binding="{Binding Content}" Width="300"/>
                             <DataGridTextColumn Header="Кому отдали" Binding="{Binding Person}"/>
                             <DataGridTextColumn Header="Вх.дата" Binding="{Binding JDate}"/>
                             <DataGridTextColumn Header="Вх.N" Binding="{Binding JNo}"/>
