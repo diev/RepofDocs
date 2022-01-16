@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 using Rosd.Data;
+using Rosd.Models;
 
 var builder = WebApplication.CreateBuilder(args); // If exception here, disable docker-compose V2 and rebuild the solution.
 
@@ -17,6 +18,12 @@ builder.Services.AddDefaultIdentity<IdentityUser<Guid>>(options => options.SignI
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await SeedData.InitializeAsync(services);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

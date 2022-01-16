@@ -1,4 +1,6 @@
-﻿namespace Rosd.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Rosd.Models;
 
 /// <summary>
 /// Документ (или папка, или архив документов) в хранилище
@@ -13,16 +15,19 @@ public class Doc
     /// <summary>
     /// Название документа (исходное имя файла)
     /// </summary>
+    [Display(Name = "Название")]
     public string Title { get; set; } = "?";
 
     /// <summary>
     /// Тип документа (расширение файла)
     /// </summary>
+    [Display(Name = "Тип")]
     public string? Ext { get; set; }
 
     /// <summary>
     /// Дата/время изменения файла документа
     /// </summary>
+    [Display(Name = "Изменен")]
     public DateTime? Date { get; set; }
 
     /// <summary>
@@ -33,11 +38,13 @@ public class Doc
     /// <summary>
     /// Содержание документа (распознанный или исходный текст)
     /// </summary>
+    [Display(Name = "Текст")]
     public string? Content { get; set; }
 
     /// <summary>
     /// Поле для примечаний
     /// </summary>
+    [Display(Name = "Примечания")]
     public string? Note { get; set; }
 
     #region Flags
