@@ -75,8 +75,8 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Вх.дата" Binding="{Binding JDate}"/>
                             <DataGridTextColumn Header="Вх.N" Binding="{Binding JNo}"/>
-                            <DataGridTextColumn Header="Дата док." Binding="{Binding SenderDate}"/>
-                            <DataGridTextColumn Header="N док." Binding="{Binding SenderNo}"/>
+                            <DataGridTextColumn Header="Дата док." Binding="{Binding SendDate}"/>
+                            <DataGridTextColumn Header="N док." Binding="{Binding SendNo}"/>
                             <DataGridTextColumn Header="Отправитель" Binding="{Binding Sender}"/>
                             <DataGridTextColumn Header="Адресат" Binding="{Binding Attn}"/>
                             <DataGridTextColumn Header="Клиент" Binding="{Binding Client}"/>
@@ -106,8 +106,8 @@
                             <DataGridTextColumn Header="Срок отв." Binding="{Binding RDate}"/>
                             <DataGridTextColumn Header="Вх.дата" Binding="{Binding JDate}"/>
                             <DataGridTextColumn Header="Вх.N" Binding="{Binding JNo}"/>
-                            <DataGridTextColumn Header="Дата док." Binding="{Binding SenderDate}"/>
-                            <DataGridTextColumn Header="N док." Binding="{Binding SenderNo}"/>
+                            <DataGridTextColumn Header="Дата док." Binding="{Binding SendDate}"/>
+                            <DataGridTextColumn Header="N док." Binding="{Binding SendNo}"/>
                             <DataGridTextColumn Header="Отправитель" Binding="{Binding Sender}"/>
                             <DataGridTextColumn Header="Адресат" Binding="{Binding Attn}"/>
                             <DataGridTextColumn Header="Клиент" Binding="{Binding Client}"/>
@@ -136,7 +136,7 @@
                             <DataGridTextColumn Header="Кому" Binding="{Binding Receiver}"/>
                             <DataGridTextColumn Header="Тема" Binding="{Binding Subject}"/>
                             <DataGridTextColumn Header="Исполнитель" Binding="{Binding Person}"/>
-                            <DataGridTextColumn Header="Вх.дата" Binding="{Binding JData}"/>
+                            <DataGridTextColumn Header="Вх.дата" Binding="{Binding JDate}"/>
                             <DataGridTextColumn Header="Вх.N" Binding="{Binding JNo}"/>
                         </DataGrid.Columns>
                     </DataGrid>
