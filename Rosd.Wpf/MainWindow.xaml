@@ -3,15 +3,34 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         xmlns:local="clr-namespace:Rosd.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="Реестр документов" Height="450" Width="800" Loaded="Window_Loaded">
     <Window.Resources>
-        <CollectionViewSource x:Key="trackViewSource"/>
-        <CollectionViewSource x:Key="attnViewSource"/>
-        <CollectionViewSource x:Key="personViewSource"/>
-        <CollectionViewSource x:Key="titleViewSource"/>
-        <CollectionViewSource x:Key="viaViewSource"/>
+        <CollectionViewSource x:Key="inTrackViewSource" Filter="CollectionViewSource_inFilter">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="IDate"/>
+                <scm:SortDescription PropertyName="INo"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="jrlTrackViewSource" Filter="CollectionViewSource_jrlFilter">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="JDate"/>
+                <scm:SortDescription PropertyName="JNo"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="repTrackViewSource" Filter="CollectionViewSource_repFilter">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="RDate"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="outTrackViewSource" Filter="CollectionViewSource_outFilter">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="ODate"/>
+                <scm:SortDescription PropertyName="ONo"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
     </Window.Resources>
     <Grid>
         <TabControl x:Name="tabControl">
@@ -25,33 +44,17 @@
                     <DataGrid x:Name="inGrid"
                               AutoGenerateColumns="False"
                               EnableRowVirtualization="True"
-                              ItemsSource="{Binding Source={StaticResource trackViewSource}}">
+                              ItemsSource="{Binding Source={StaticResource inTrackViewSource}}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Дата" Binding="{Binding IDate}"/>
                             <DataGridTextColumn Header="N" Binding="{Binding INo}"/>
-                            <DataGridComboBoxColumn Header="Кто принес" 
-                                                    ItemsSource="{Binding Source={StaticResource viaViewSource}}" 
-                                                    DisplayMemberPath="Name" 
-                                                    SelectedValuePath="Id" 
-                                                    SelectedValueBinding="{Binding ViaId}"/>
-                            <DataGridComboBoxColumn Header="Отправитель" 
-                                                    ItemsSource="{Binding Source={StaticResource titleViewSource}}" 
-                                                    DisplayMemberPath="Name" 
-                                                    SelectedValuePath="Id" 
-                                                    SelectedValueBinding="{Binding SenderId}"/>
-                            <DataGridComboBoxColumn Header="Адресат" 
-                                                    ItemsSource="{Binding Source={StaticResource attnViewSource}}" 
-                                                    DisplayMemberPath="Name" 
-                                                    SelectedValuePath="Id" 
-                                                    SelectedValueBinding="{Binding AttnId}"/>
+                            <DataGridTextColumn Header="Кто принес" Binding="{Binding Via}"/>
+                            <DataGridTextColumn Header="Отправитель" Binding="{Binding Sender}"/>
+                            <DataGridTextColumn Header="Адресат" Binding="{Binding Attn}"/>
                             <DataGridTextColumn Header="Клиент" Binding="{Binding Client}"/>
                             <DataGridTextColumn Header="ИНН" Binding="{Binding INN}"/>
                             <DataGridTextColumn Header="Содержание" Binding="{Binding Content}"/>
-                            <DataGridComboBoxColumn Header="Кому отдали" 
-                                                    ItemsSource="{Binding Source={StaticResource personViewSource}}" 
-                                                    DisplayMemberPath="Name" 
-                                                    SelectedValuePath="Id" 
-                                                    SelectedValueBinding="{Binding PersonId}"/>
+                            <DataGridTextColumn Header="Кому отдали" Binding="{Binding Person}"/>
                             <DataGridTextColumn Header="Вх.дата" Binding="{Binding JDate}"/>
                             <DataGridTextColumn Header="Вх.N" Binding="{Binding JNo}"/>
                         </DataGrid.Columns>
@@ -68,31 +71,19 @@
                     <DataGrid x:Name="jrlGrid"
                               AutoGenerateColumns="False"
                               EnableRowVirtualization="True"
-                              ItemsSource="{Binding Source={StaticResource trackViewSource}}">
+                              ItemsSource="{Binding Source={StaticResource jrlTrackViewSource}}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Вх.дата" Binding="{Binding JDate}"/>
                             <DataGridTextColumn Header="Вх.N" Binding="{Binding JNo}"/>
                             <DataGridTextColumn Header="Дата док." Binding="{Binding SenderDate}"/>
                             <DataGridTextColumn Header="N док." Binding="{Binding SenderNo}"/>
-                            <DataGridComboBoxColumn Header="Отправитель" 
-                                                    ItemsSource="{Binding Source={StaticResource titleViewSource}}" 
-                                                    DisplayMemberPath="Name" 
-                                                    SelectedValuePath="Id" 
-                                                    SelectedValueBinding="{Binding SenderId}"/>
-                            <DataGridComboBoxColumn Header="Адресат" 
-                                                    ItemsSource="{Binding Source={StaticResource attnViewSource}}" 
-                                                    DisplayMemberPath="Name" 
-                                                    SelectedValuePath="Id" 
-                                                    SelectedValueBinding="{Binding AttnId}"/>
+                            <DataGridTextColumn Header="Отправитель" Binding="{Binding Sender}"/>
+                            <DataGridTextColumn Header="Адресат" Binding="{Binding Attn}"/>
                             <DataGridTextColumn Header="Клиент" Binding="{Binding Client}"/>
                             <DataGridTextColumn Header="ИНН" Binding="{Binding INN}"/>
                             <DataGridTextColumn Header="Содержание" Binding="{Binding Content}"/>
                             <DataGridTextColumn Header="Примечание" Binding="{Binding Notes}"/>
-                            <DataGridComboBoxColumn Header="Исполнитель" 
-                                                    ItemsSource="{Binding Source={StaticResource personViewSource}}" 
-                                                    DisplayMemberPath="Name" 
-                                                    SelectedValuePath="Id" 
-                                                    SelectedValueBinding="{Binding PersonId}"/>
+                            <DataGridTextColumn Header="Исполнитель" Binding="{Binding Person}"/>
                             <DataGridTextColumn Header="Срок отв." Binding="{Binding RDate}"/>
                             <DataGridTextColumn Header="Исх.дата" Binding="{Binding ODate}"/>
                             <DataGridTextColumn Header="Исх.N" Binding="{Binding ONo}"/>
@@ -100,42 +91,30 @@
                     </DataGrid>
                 </TabItem.Content>
             </TabItem>
-            <TabItem Name="waitBox">
+            <TabItem Name="repBox">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Сроки"/>
                     </StackPanel>
                 </TabItem.Header>
                 <TabItem.Content>
-                    <DataGrid x:Name="waitGrid"
+                    <DataGrid x:Name="repGrid"
                               AutoGenerateColumns="False"
                               EnableRowVirtualization="True"
-                              ItemsSource="{Binding Source={StaticResource trackViewSource}}">
+                              ItemsSource="{Binding Source={StaticResource repTrackViewSource}}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Срок отв." Binding="{Binding RDate}"/>
                             <DataGridTextColumn Header="Вх.дата" Binding="{Binding JDate}"/>
                             <DataGridTextColumn Header="Вх.N" Binding="{Binding JNo}"/>
                             <DataGridTextColumn Header="Дата док." Binding="{Binding SenderDate}"/>
                             <DataGridTextColumn Header="N док." Binding="{Binding SenderNo}"/>
-                            <DataGridComboBoxColumn Header="Отправитель" 
-                                                    ItemsSource="{Binding Source={StaticResource titleViewSource}}" 
-                                                    DisplayMemberPath="Name" 
-                                                    SelectedValuePath="Id" 
-                                                    SelectedValueBinding="{Binding SenderId}"/>
-                            <DataGridComboBoxColumn Header="Адресат" 
-                                                    ItemsSource="{Binding Source={StaticResource attnViewSource}}" 
-                                                    DisplayMemberPath="Name" 
-                                                    SelectedValuePath="Id" 
-                                                    SelectedValueBinding="{Binding AttnId}"/>
+                            <DataGridTextColumn Header="Отправитель" Binding="{Binding Sender}"/>
+                            <DataGridTextColumn Header="Адресат" Binding="{Binding Attn}"/>
                             <DataGridTextColumn Header="Клиент" Binding="{Binding Client}"/>
                             <DataGridTextColumn Header="ИНН" Binding="{Binding INN}"/>
                             <DataGridTextColumn Header="Содержание" Binding="{Binding Content}"/>
                             <DataGridTextColumn Header="Примечание" Binding="{Binding Notes}"/>
-                            <DataGridComboBoxColumn Header="Исполнитель" 
-                                                    ItemsSource="{Binding Source={StaticResource personViewSource}}" 
-                                                    DisplayMemberPath="Name" 
-                                                    SelectedValuePath="Id" 
-                                                    SelectedValueBinding="{Binding PersonId}"/>
+                            <DataGridTextColumn Header="Исполнитель" Binding="{Binding Person}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem.Content>
@@ -150,7 +129,7 @@
                     <DataGrid x:Name="outGrid"
                               AutoGenerateColumns="False"
                               EnableRowVirtualization="True"
-                              ItemsSource="{Binding Source={StaticResource trackViewSource}}">
+                              ItemsSource="{Binding Source={StaticResource outTrackViewSource}}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Исх.дата" Binding="{Binding ODate}"/>
                             <DataGridTextColumn Header="Исх.N" Binding="{Binding ONo}"/>

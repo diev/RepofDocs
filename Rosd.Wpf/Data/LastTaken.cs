@@ -1,4 +1,4 @@
-﻿namespace Rosd.Wpf.Models;
+﻿namespace Rosd.Wpf.Data;
 
 public class LastTaken
 {

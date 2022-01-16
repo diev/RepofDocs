@@ -4,6 +4,7 @@ using Rosd.Wpf.Data;
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,48 +25,63 @@ namespace Rosd.Wpf;
 /// </summary>
 public partial class MainWindow : Window
 {
-    private readonly TrackContext _context = new();
+    private readonly ApplicationDbContext _context;
 
-    private readonly CollectionViewSource trackViewSource;
-    private readonly CollectionViewSource attnViewSource;
-    private readonly CollectionViewSource personViewSource;
-    private readonly CollectionViewSource titleViewSource;
-    private readonly CollectionViewSource viaViewSource;
+    private readonly CollectionViewSource inTrackViewSource;
+    private readonly CollectionViewSource jrlTrackViewSource;
+    private readonly CollectionViewSource repTrackViewSource;
+    private readonly CollectionViewSource outTrackViewSource;
 
-    public MainWindow()
+    public MainWindow(ApplicationDbContext context)
     {
+        _context = context;
         InitializeComponent();
         
-        trackViewSource = (CollectionViewSource)FindResource(nameof(trackViewSource));
-        attnViewSource = (CollectionViewSource)FindResource(nameof(attnViewSource));
-        personViewSource = (CollectionViewSource)FindResource(nameof(personViewSource));
-        titleViewSource = (CollectionViewSource)FindResource(nameof(titleViewSource));
-        viaViewSource = (CollectionViewSource)FindResource(nameof(viaViewSource));
-
-        DataContext = this;
+        inTrackViewSource = (CollectionViewSource)FindResource(nameof(inTrackViewSource));
+        jrlTrackViewSource = (CollectionViewSource)FindResource(nameof(jrlTrackViewSource));
+        repTrackViewSource = (CollectionViewSource)FindResource(nameof(repTrackViewSource));
+        outTrackViewSource = (CollectionViewSource)FindResource(nameof(outTrackViewSource));
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        _context.Database.EnsureDeleted();
-        _context.Database.EnsureCreated();
+        _context.Tracks.Load();
 
-        _context.TrackItems.Load();
-        _context.AttnItems.Load();
-        _context.PersonItems.Load();
-        _context.TitleItems.Load();
-        _context.ViaItems.Load();
-
-        trackViewSource.Source = _context.TrackItems.Local.ToObservableCollection();
-        attnViewSource.Source = _context.AttnItems.Local.ToObservableCollection();
-        personViewSource.Source = _context.PersonItems.Local.ToObservableCollection();
-        titleViewSource.Source = _context.TitleItems.Local.ToObservableCollection();
-        viaViewSource.Source = _context.ViaItems.Local.ToObservableCollection();
+        inTrackViewSource.Source = _context.Tracks.Local.ToObservableCollection();
+        jrlTrackViewSource.Source = _context.Tracks.Local.ToObservableCollection();
+        repTrackViewSource.Source = _context.Tracks.Local.ToObservableCollection();
+        outTrackViewSource.Source = _context.Tracks.Local.ToObservableCollection();
     }
 
-    private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    private void CollectionViewSource_inFilter(object sender, FilterEventArgs e)
     {
-        _context.Dispose();
-        base.OnClosing(e);
+        if (e.Item is Track t)
+        {
+            e.Accepted = t.INo != string.Empty;
+        }
+    }
+
+    private void CollectionViewSource_jrlFilter(object sender, FilterEventArgs e)
+    {
+        if (e.Item is Track t)
+        {
+            e.Accepted = t.JNo != string.Empty;
+        }
+    }
+
+    private void CollectionViewSource_repFilter(object sender, FilterEventArgs e)
+    {
+        if (e.Item is Track t)
+        {
+            e.Accepted = t.RDate != string.Empty;
+        }
+    }
+
+    private void CollectionViewSource_outFilter(object sender, FilterEventArgs e)
+    {
+        if (e.Item is Track t)
+        {
+            e.Accepted = t.ONo != string.Empty;
+        }
     }
 }
