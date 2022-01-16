@@ -5,7 +5,17 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Oxygen-Icons.org-Oxygen-Apps-kontact.ico</ApplicationIcon>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/diev/RepofDocs.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/diev/RepofDocs</PackageProjectUrl>
+    <Copyright>Dmitrii Evdokimov</Copyright>
+    <Description>Repository of scanned documents with incoming and outcoming reestrs.</Description>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Oxygen-Icons.org-Oxygen-Apps-kontact.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.1" />
