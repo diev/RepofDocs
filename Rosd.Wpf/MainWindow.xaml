@@ -4,8 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        xmlns:local="clr-namespace:Rosd.Wpf"
+        xmlns:data="clr-namespace:Rosd.Wpf.Data"
         mc:Ignorable="d"
         Title="Реестр документов" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.DataContext>
+        <data:Track/>
+    </Window.DataContext>
     <Window.Resources>
         <CollectionViewSource x:Key="inTrackViewSource" Filter="CollectionViewSource_inFilter">
             <CollectionViewSource.SortDescriptions>
@@ -47,14 +52,36 @@
                             <DataGridTextColumn Header="№" Binding="{Binding INo}"/>
                             <DataGridTextColumn Header="Дата" Binding="{Binding IDate}"/>
                             <DataGridTextColumn Header="Кто принес" Binding="{Binding Via}"/>
-                            <DataGridTextColumn Header="Отправитель" Binding="{Binding Sender}" Width="200"/>
                             <DataGridTextColumn Header="Адресат" Binding="{Binding Attn}"/>
+                            <DataGridTextColumn Header="Отправитель" Binding="{Binding Sender}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Name="unBox">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Запросы"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <DataGrid x:Name="unGrid"
+                              AutoGenerateColumns="False"
+                              EnableRowVirtualization="True"
+                              ItemsSource="{Binding Source={StaticResource inTrackViewSource}}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="№" Binding="{Binding INo}"/>
+                            <DataGridTextColumn Header="Дата" Binding="{Binding IDate}"/>
+                            <DataGridTextColumn Header="Отправитель" Binding="{Binding Sender}" Width="200"/>
                             <DataGridTextColumn Header="Клиент" Binding="{Binding Client}"/>
                             <DataGridTextColumn Header="ИНН" Binding="{Binding INN}"/>
                             <DataGridTextColumn Header="Содержание" Binding="{Binding Content}" Width="300"/>
+                            <DataGridTextColumn Header="Примечание" Binding="{Binding Notes}"/>
                             <DataGridTextColumn Header="Кому отдали" Binding="{Binding Person}"/>
+                            <DataGridTextColumn Header="Адресат" Binding="{Binding Attn}"/>
                             <DataGridTextColumn Header="Вх.дата" Binding="{Binding JDate}"/>
                             <DataGridTextColumn Header="Вх.№" Binding="{Binding JNo}"/>
+                            <DataGridTextColumn Header="Тема" Binding="{Binding JSubject}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem.Content>
@@ -73,18 +100,12 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Вх.дата" Binding="{Binding JDate}"/>
                             <DataGridTextColumn Header="Вх.№" Binding="{Binding JNo}"/>
+                            <DataGridTextColumn Header="Отправитель" Binding="{Binding Sender}"/>
                             <DataGridTextColumn Header="Дата док." Binding="{Binding SendDate}"/>
                             <DataGridTextColumn Header="№ док." Binding="{Binding SendNo}"/>
-                            <DataGridTextColumn Header="Отправитель" Binding="{Binding Sender}"/>
-                            <DataGridTextColumn Header="Адресат" Binding="{Binding Attn}"/>
-                            <DataGridTextColumn Header="Клиент" Binding="{Binding Client}"/>
-                            <DataGridTextColumn Header="ИНН" Binding="{Binding INN}"/>
-                            <DataGridTextColumn Header="Содержание" Binding="{Binding Content}"/>
-                            <DataGridTextColumn Header="Примечание" Binding="{Binding Notes}"/>
+                            <DataGridTextColumn Header="Тема" Binding="{Binding JSubject}"/>
                             <DataGridTextColumn Header="Исполнитель" Binding="{Binding Person}"/>
                             <DataGridTextColumn Header="Срок отв." Binding="{Binding RDate}"/>
-                            <DataGridTextColumn Header="Исх.дата" Binding="{Binding ODate}"/>
-                            <DataGridTextColumn Header="Исх.№" Binding="{Binding ONo}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem.Content>
@@ -102,17 +123,13 @@
                               ItemsSource="{Binding Source={StaticResource repTrackViewSource}}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Срок отв." Binding="{Binding RDate}"/>
+                            <DataGridTextColumn Header="Исполнитель" Binding="{Binding Person}"/>
                             <DataGridTextColumn Header="Вх.дата" Binding="{Binding JDate}"/>
                             <DataGridTextColumn Header="Вх.№" Binding="{Binding JNo}"/>
-                            <DataGridTextColumn Header="Дата док." Binding="{Binding SendDate}"/>
-                            <DataGridTextColumn Header="№ док." Binding="{Binding SendNo}"/>
                             <DataGridTextColumn Header="Отправитель" Binding="{Binding Sender}"/>
-                            <DataGridTextColumn Header="Адресат" Binding="{Binding Attn}"/>
-                            <DataGridTextColumn Header="Клиент" Binding="{Binding Client}"/>
-                            <DataGridTextColumn Header="ИНН" Binding="{Binding INN}"/>
-                            <DataGridTextColumn Header="Содержание" Binding="{Binding Content}"/>
-                            <DataGridTextColumn Header="Примечание" Binding="{Binding Notes}"/>
-                            <DataGridTextColumn Header="Исполнитель" Binding="{Binding Person}"/>
+                            <DataGridTextColumn Header="Тема" Binding="{Binding JSubject}"/>
+                            <DataGridTextColumn Header="Исх.дата" Binding="{Binding ODate}"/>
+                            <DataGridTextColumn Header="Исх.№" Binding="{Binding ONo}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem.Content>
@@ -131,9 +148,9 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Исх.дата" Binding="{Binding ODate}"/>
                             <DataGridTextColumn Header="Исх.№" Binding="{Binding ONo}"/>
-                            <DataGridTextColumn Header="Кому" Binding="{Binding Receiver}"/>
-                            <DataGridTextColumn Header="Тема" Binding="{Binding Subject}"/>
                             <DataGridTextColumn Header="Исполнитель" Binding="{Binding Person}"/>
+                            <DataGridTextColumn Header="Кому" Binding="{Binding Receiver}"/>
+                            <DataGridTextColumn Header="Тема" Binding="{Binding OSubject}"/>
                             <DataGridTextColumn Header="Вх.дата" Binding="{Binding JDate}"/>
                             <DataGridTextColumn Header="Вх.№" Binding="{Binding JNo}"/>
                         </DataGrid.Columns>

@@ -39,22 +39,25 @@ public class ApplicationDbContext : DbContext
         foreach (var line in lines)
         {
             var items = line.Split('\t');
+            int ino = int.TryParse(items[0], out int i)? i: 0;
+
             if (id < 75)
             {
                 data[id] = new Track
                 {
                     Id = ++id,
                     IDate = items[1],
-                    INo = items[0],
+                    INo = ino,
                     IFile = items[9],
                     Via = items[2],
                     Sender = items[3],
-                    SendDate = items[12],
-                    SendNo = items[12],
+                    SendDate = items[12].Length > 14 ? items[12][^10..] : string.Empty,
+                    SendNo = items[12].Length > 14 ? items[12][0..^14] : string.Empty,
                     Attn = items[4],
                     Client = items[5],
                     INN = items[16],
                     Content = items[6],
+                    JSubject = items[6].Split(' ')[0],
                     Person = items[7] ?? items[27],
                     Notes = items[17],
                     JDate = items[11],
@@ -64,7 +67,7 @@ public class ApplicationDbContext : DbContext
                     ONo = items[22],
                     OFile = items[28],
                     Receiver = items[24],
-                    Subject = items[25]
+                    OSubject = items[25]
                 };
             }
             else
@@ -74,7 +77,7 @@ public class ApplicationDbContext : DbContext
                     {
                         Id = ++id,
                         IDate = items[1],
-                        INo = items[0],
+                        INo = ino,
                         IFile = items[9],
                         Via = items[2],
                         Sender = items[3],
@@ -93,7 +96,7 @@ public class ApplicationDbContext : DbContext
                         ONo = items[22],
                         OFile = items[28],
                         Receiver = items[24],
-                        Subject = items[25]
+                        OSubject = items[25]
                     };
                 }
             }

@@ -4,7 +4,7 @@ public class Track
 {
     public int Id { get; set; }
     public string? IDate { get; set; }
-    public string? INo { get; set; }
+    public int INo { get; set; }
     public virtual string? IFile { get; set; }
     public string? Via { get; set; }
     public string? Sender { get; set; }
@@ -18,10 +18,11 @@ public class Track
     public string? Notes { get; set; }
     public string? JDate { get; set; }
     public string? JNo { get; set; }
+    public string? JSubject { get; set; }
     public string? RDate { get; set; }
     public string? ODate { get; set; }
     public string? ONo { get; set; }
     public virtual string? OFile { get; set; }
     public string? Receiver { get; set; }
-    public string? Subject { get; set; }
+    public string? OSubject { get; set; }
 }

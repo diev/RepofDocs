@@ -44,7 +44,7 @@ public partial class MainWindow : Window
     {
         if (e.Item is Track t)
         {
-            e.Accepted = t.INo != string.Empty;
+            e.Accepted = t.INo != 0;
         }
     }
 
