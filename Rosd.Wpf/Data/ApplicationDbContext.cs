@@ -21,14 +21,17 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        string file = "DemoDump.txt";
-        if (File.Exists(file))
+        string demoData = App.Configuration[nameof(demoData)];
+        if (File.Exists(demoData))
         {
-            modelBuilder.Entity<Track>().HasData(SeedDemoData(file));
+            modelBuilder.Entity<Track>().HasData(SeedDemoData(demoData));
         }
 
-        const string home = @"КЛИЕНТЫ";
-        modelBuilder.Entity<Client>().HasData(SeedClientData(home));
+        string clientsPath = App.Configuration[nameof(clientsPath)];
+        if (Directory.Exists(clientsPath))
+        {
+            modelBuilder.Entity<Client>().HasData(SeedClientData(clientsPath));
+        }
 
         modelBuilder.Entity<LastTaken>().HasData(
             new LastTaken { Id = DateTime.Today.Year, INo = 0, JNo = 0, ONo = 0 });
@@ -36,46 +39,41 @@ public class ApplicationDbContext : DbContext
         base.OnModelCreating(modelBuilder);
     }
 
-    private static Client[] SeedClientData(string home)
+    private static Client[] SeedClientData(string path)
     {
         //const string pattern = @"(.*)\s+\(\s*ИНН\s+(\d*)\s*\)";
         const string pattern = @"(.*)\s\(ИНН\s(\d*)\)";
 
-        if (Directory.Exists(home))
+        int id = 0;
+        var dirs = new DirectoryInfo(path).GetDirectories();
+        var data = new Client[dirs.Length];
+
+        foreach (var di in dirs)
         {
-            int id = 0;
-            var dirs = new DirectoryInfo(home).GetDirectories();
-            var data = new Client[dirs.Length];
+            var item = di.Name.Trim();
+            var match = Regex.Match(item, pattern);
 
-            foreach (var di in dirs)
+            if (match.Success)
             {
-                var item = di.Name.Trim();
-                var match = Regex.Match(item, pattern);
-
-                if (match.Success)
+                data[id] = new Client
                 {
-                    data[id] = new Client
-                    {
-                        Id = ++id,
-                        Title = match.Groups[1].Value,
-                        INN = match.Groups[2].Value
-                    };
-                }
-                else
-                {
-                    data[id] = new Client
-                    {
-                        Id = ++id,
-                        Title = item,
-                        INN = string.Empty
-                    };
-                }
+                    Id = ++id,
+                    Title = match.Groups[1].Value,
+                    INN = match.Groups[2].Value
+                };
             }
-
-            return data;
+            else
+            {
+                data[id] = new Client
+                {
+                    Id = ++id,
+                    Title = item,
+                    INN = string.Empty
+                };
+            }
         }
 
-        return Array.Empty<Client>();
+        return data;
     }
 
     private static Track[] SeedDemoData(string file)
