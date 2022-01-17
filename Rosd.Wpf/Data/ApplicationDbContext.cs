@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Rosd.Wpf.Data;
 
@@ -14,6 +16,7 @@ public class ApplicationDbContext : DbContext
     }
 
     public DbSet<Track> Tracks { get; set; } = null!;
+    public DbSet<Client> Clients { get; set; } = null!;
     public DbSet<LastTaken> LastTaken { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -24,10 +27,55 @@ public class ApplicationDbContext : DbContext
             modelBuilder.Entity<Track>().HasData(SeedDemoData(file));
         }
 
+        const string home = @"КЛИЕНТЫ";
+        modelBuilder.Entity<Client>().HasData(SeedClientData(home));
+
         modelBuilder.Entity<LastTaken>().HasData(
             new LastTaken { Id = DateTime.Today.Year, INo = 0, JNo = 0, ONo = 0 });
 
         base.OnModelCreating(modelBuilder);
+    }
+
+    private static Client[] SeedClientData(string home)
+    {
+        //const string pattern = @"(.*)\s+\(\s*ИНН\s+(\d*)\s*\)";
+        const string pattern = @"(.*)\s\(ИНН\s(\d*)\)";
+
+        if (Directory.Exists(home))
+        {
+            int id = 0;
+            var dirs = new DirectoryInfo(home).GetDirectories();
+            var data = new Client[dirs.Length];
+
+            foreach (var di in dirs)
+            {
+                var item = di.Name.Trim();
+                var match = Regex.Match(item, pattern);
+
+                if (match.Success)
+                {
+                    data[id] = new Client
+                    {
+                        Id = ++id,
+                        Title = match.Groups[1].Value,
+                        INN = match.Groups[2].Value
+                    };
+                }
+                else
+                {
+                    data[id] = new Client
+                    {
+                        Id = ++id,
+                        Title = item,
+                        INN = string.Empty
+                    };
+                }
+            }
+
+            return data;
+        }
+
+        return Array.Empty<Client>();
     }
 
     private static Track[] SeedDemoData(string file)

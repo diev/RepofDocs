@@ -34,6 +34,11 @@
                 <scm:SortDescription PropertyName="ONo"/>
             </CollectionViewSource.SortDescriptions>
         </CollectionViewSource>
+        <CollectionViewSource x:Key="clientViewSource">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Title"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
     </Window.Resources>
     <Grid>
         <TabControl x:Name="tabControl">
@@ -153,6 +158,24 @@
                             <DataGridTextColumn Header="Тема" Binding="{Binding OSubject}"/>
                             <DataGridTextColumn Header="Вх.дата" Binding="{Binding JDate}"/>
                             <DataGridTextColumn Header="Вх.№" Binding="{Binding JNo}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Name="clientBox">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Клиенты"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <DataGrid x:Name="clientGrid"
+                              AutoGenerateColumns="False"
+                              EnableRowVirtualization="True"
+                              ItemsSource="{Binding Source={StaticResource clientViewSource}}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ИНН" Binding="{Binding INN}"/>
+                            <DataGridTextColumn Header="Наименование" Binding="{Binding Title}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem.Content>
