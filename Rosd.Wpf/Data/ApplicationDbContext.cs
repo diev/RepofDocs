@@ -94,7 +94,6 @@ public class ApplicationDbContext : DbContext
                     Id = ++id,
                     IDate = items[1],
                     INo = ino,
-                    IFile = items[9],
                     Via = items[2],
                     Sender = items[3],
                     SendDate = items[12].Length > 14 ? items[12][^10..] : string.Empty,
@@ -111,7 +110,6 @@ public class ApplicationDbContext : DbContext
                     RDate = items[19],
                     ODate = items[23],
                     ONo = items[22],
-                    OFile = items[28],
                     Receiver = items[24],
                     OSubject = items[25]
                 };
@@ -124,7 +122,6 @@ public class ApplicationDbContext : DbContext
                         Id = ++id,
                         IDate = items[1],
                         INo = ino,
-                        IFile = items[9],
                         Via = items[2],
                         Sender = items[3],
                         SendDate = items[12],
@@ -140,7 +137,6 @@ public class ApplicationDbContext : DbContext
                         RDate = items[19],
                         ODate = items[23],
                         ONo = items[22],
-                        OFile = items[28],
                         Receiver = items[24],
                         OSubject = items[25]
                     };

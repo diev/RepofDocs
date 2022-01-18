@@ -4,8 +4,7 @@ public class Track
 {
     public int Id { get; set; }
     public string? IDate { get; set; }
-    public int INo { get; set; }
-    public virtual string? IFile { get; set; }
+    public int? INo { get; set; }
     public string? Via { get; set; }
     public string? Sender { get; set; }
     public string? SendDate { get; set; }
@@ -22,7 +21,6 @@ public class Track
     public string? RDate { get; set; }
     public string? ODate { get; set; }
     public string? ONo { get; set; }
-    public virtual string? OFile { get; set; }
     public string? Receiver { get; set; }
     public string? OSubject { get; set; }
 }
