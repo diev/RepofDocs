@@ -5,12 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         xmlns:local="clr-namespace:Rosd.Wpf"
-        xmlns:data="clr-namespace:Rosd.Wpf.Data"
+        xmlns:data="clr-namespace:Rosd.Wpf.Data" 
+        xmlns:vm="clr-namespace:Rosd.Wpf.ViewModels"
         mc:Ignorable="d"
         Title="Реестр документов" Height="450" Width="800" Loaded="Window_Loaded">
-    <Window.DataContext>
-        <data:Track/>
-    </Window.DataContext>
     <Window.Resources>
         <CollectionViewSource x:Key="inTrackViewSource" Filter="CollectionViewSource_inFilter">
             <CollectionViewSource.SortDescriptions>
@@ -52,7 +50,7 @@
                     <DataGrid x:Name="inGrid"
                               AutoGenerateColumns="False"
                               EnableRowVirtualization="True"
-                              ItemsSource="{Binding Source={StaticResource inTrackViewSource}}">
+                              ItemsSource="{Binding Source={StaticResource inTrackViewSource}}" FrozenColumnCount="1">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="№" Binding="{Binding INo}"/>
                             <DataGridTextColumn Header="Дата" Binding="{Binding IDate}"/>
@@ -73,7 +71,7 @@
                     <DataGrid x:Name="unGrid"
                               AutoGenerateColumns="False"
                               EnableRowVirtualization="True"
-                              ItemsSource="{Binding Source={StaticResource inTrackViewSource}}">
+                              ItemsSource="{Binding Source={StaticResource inTrackViewSource}}" FrozenColumnCount="1">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="№" Binding="{Binding INo}"/>
                             <DataGridTextColumn Header="Дата" Binding="{Binding IDate}"/>
@@ -101,7 +99,7 @@
                     <DataGrid x:Name="jrlGrid"
                               AutoGenerateColumns="False"
                               EnableRowVirtualization="True"
-                              ItemsSource="{Binding Source={StaticResource jrlTrackViewSource}}">
+                              ItemsSource="{Binding Source={StaticResource jrlTrackViewSource}}" FrozenColumnCount="2">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Вх.дата" Binding="{Binding JDate}"/>
                             <DataGridTextColumn Header="Вх.№" Binding="{Binding JNo}"/>
@@ -125,7 +123,7 @@
                     <DataGrid x:Name="repGrid"
                               AutoGenerateColumns="False"
                               EnableRowVirtualization="True"
-                              ItemsSource="{Binding Source={StaticResource repTrackViewSource}}">
+                              ItemsSource="{Binding Source={StaticResource repTrackViewSource}}" FrozenColumnCount="1">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Срок отв." Binding="{Binding RDate}"/>
                             <DataGridTextColumn Header="Исполнитель" Binding="{Binding Person}"/>
@@ -149,7 +147,7 @@
                     <DataGrid x:Name="outGrid"
                               AutoGenerateColumns="False"
                               EnableRowVirtualization="True"
-                              ItemsSource="{Binding Source={StaticResource outTrackViewSource}}">
+                              ItemsSource="{Binding Source={StaticResource outTrackViewSource}}" FrozenColumnCount="2">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Исх.дата" Binding="{Binding ODate}"/>
                             <DataGridTextColumn Header="Исх.№" Binding="{Binding ONo}"/>
@@ -172,7 +170,11 @@
                     <DataGrid x:Name="clientGrid"
                               AutoGenerateColumns="False"
                               EnableRowVirtualization="True"
-                              ItemsSource="{Binding Source={StaticResource clientViewSource}}">
+                              IsReadOnly="True"
+                              ItemsSource="{Binding ClientRecord.ClientRecords}" FrozenColumnCount="1" SelectionMode="Single">
+                        <DataGrid.DataContext>
+                            <vm:ClientViewModel/>
+                        </DataGrid.DataContext>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ИНН" Binding="{Binding INN}"/>
                             <DataGridTextColumn Header="Наименование" Binding="{Binding Title}"/>

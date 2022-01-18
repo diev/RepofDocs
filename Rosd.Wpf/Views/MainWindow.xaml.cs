@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using Rosd.Wpf.Data;
+using Rosd.Wpf.ViewModels;
 
 using System.Windows;
 using System.Windows.Data;
@@ -18,18 +19,19 @@ public partial class MainWindow : Window
     private readonly CollectionViewSource jrlTrackViewSource;
     private readonly CollectionViewSource repTrackViewSource;
     private readonly CollectionViewSource outTrackViewSource;
-    private readonly CollectionViewSource clientViewSource;
+    //private readonly CollectionViewSource clientViewSource;
 
     public MainWindow(ApplicationDbContext context)
     {
         _context = context;
         InitializeComponent();
-        
+        this.DataContext = new TrackViewModel();
+
         inTrackViewSource = (CollectionViewSource)FindResource(nameof(inTrackViewSource));
         jrlTrackViewSource = (CollectionViewSource)FindResource(nameof(jrlTrackViewSource));
         repTrackViewSource = (CollectionViewSource)FindResource(nameof(repTrackViewSource));
         outTrackViewSource = (CollectionViewSource)FindResource(nameof(outTrackViewSource));
-        clientViewSource = (CollectionViewSource)FindResource(nameof(clientViewSource));
+        //clientViewSource = (CollectionViewSource)FindResource(nameof(clientViewSource));
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -41,9 +43,9 @@ public partial class MainWindow : Window
         repTrackViewSource.Source = _context.Tracks.Local.ToObservableCollection();
         outTrackViewSource.Source = _context.Tracks.Local.ToObservableCollection();
 
-        _context.Clients.Load();
+        //_context.Clients.Load();
 
-        clientViewSource.Source = _context.Clients.Local.ToObservableCollection();
+        //clientViewSource.Source = _context.Clients.Local.ToObservableCollection();
     }
 
     private void CollectionViewSource_inFilter(object sender, FilterEventArgs e)

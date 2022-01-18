@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -9,6 +8,10 @@ namespace Rosd.Wpf.Data;
 
 public class ApplicationDbContext : DbContext
 {
+    public ApplicationDbContext()
+    {
+    }
+
     public ApplicationDbContext(DbContextOptions options) : base(options)
     {
         Database.EnsureDeleted();
@@ -16,8 +19,12 @@ public class ApplicationDbContext : DbContext
     }
 
     public DbSet<Track> Tracks { get; set; } = null!;
-    public DbSet<Client> Clients { get; set; } = null!;
+    //public DbSet<Client> Clients { get; set; } = null!;
     public DbSet<LastTaken> LastTaken { get; set; } = null!;
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
+        optionsBuilder.UseSqlite("Data Source=Tracks.db");
+    //    optionsBuilder.UseSnakeCaseNamingConvention();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -27,11 +34,11 @@ public class ApplicationDbContext : DbContext
             modelBuilder.Entity<Track>().HasData(SeedDemoData(demoData));
         }
 
-        string clientsPath = App.Configuration[nameof(clientsPath)];
-        if (Directory.Exists(clientsPath))
-        {
-            modelBuilder.Entity<Client>().HasData(SeedClientData(clientsPath));
-        }
+        //string clientsPath = App.Configuration[nameof(clientsPath)];
+        //if (Directory.Exists(clientsPath))
+        //{
+        //    modelBuilder.Entity<Client>().HasData(SeedClientData(clientsPath));
+        //}
 
         modelBuilder.Entity<LastTaken>().HasData(
             new LastTaken { Id = DateTime.Today.Year, INo = 0, JNo = 0, ONo = 0 });

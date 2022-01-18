@@ -50,26 +50,23 @@ public partial class App : Application
 
     private static void ConfigureServices(IServiceCollection services)
     {
-        string connection = Configuration[nameof(connection)];
+        string connection = Configuration[nameof(connection)] ?? "DefaultConnection";
         string connectionString = Configuration.GetConnectionString(connection);
 
-        services.AddDbContext<ApplicationDbContext>(options =>
+        switch (connection)
         {
-            switch (connection)
-            {
-                case "Sqlite":
-                    options.UseSqlite(connectionString);
-                    break;
+            case "Sqlite":
+                services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connectionString));
+                break;
 
-                //case "SqlServer":
-                //    options.UseSqlServer(connectionString);
-                //    break;
+            //case "SqlServer":
+            //    services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+            //    break;
 
-                //case "Npgsql":
-                //    options.UseNpgsql(connectionString);
-                //    break;
-            }
-        });
+            //case "Npgsql":
+            //    services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
+            //    break;
+        }
 
         services.AddTransient(typeof(MainWindow));
     }
