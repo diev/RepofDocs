@@ -7,8 +7,12 @@
         xmlns:local="clr-namespace:Rosd.Wpf"
         xmlns:data="clr-namespace:Rosd.Wpf.Data" 
         xmlns:vm="clr-namespace:Rosd.Wpf.ViewModels"
+        d:DataContext="{d:DesignInstance Type=vm:TrackViewModel}"
         mc:Ignorable="d"
         Title="Реестр документов" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.DataContext>
+        <vm:TrackViewModel/>
+    </Window.DataContext>
     <Window.Resources>
         <CollectionViewSource x:Key="inTrackViewSource" Filter="CollectionViewSource_inFilter">
             <CollectionViewSource.SortDescriptions>
@@ -47,10 +51,42 @@
                     </StackPanel>
                 </TabItem.Header>
                 <TabItem.Content>
-                    <DataGrid x:Name="inGrid"
+                    <DockPanel>
+                        <GroupBox DockPanel.Dock="Bottom" Header="Конверт" Height="Auto">
+                            <DockPanel>
+                                <StackPanel DockPanel.Dock="Right" Orientation="Vertical">
+                                    <Button Content="Save" Command="{Binding SaveCommand}"/>
+                                    <Button Content="Cancel" Command="{Binding ResetCommand}"/>
+                                </StackPanel>
+                                <Grid Margin="0,0,10,10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Row="0" Grid.Column="0" Content="№" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TrackRecord.INo, Mode=TwoWay}"/>
+                                    <Label Grid.Row="1" Grid.Column="0" Content="Дата" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding TrackRecord.IDate, Mode=TwoWay}"/>
+                                    <Label Grid.Row="2" Grid.Column="0" Content="Кто принес" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding TrackRecord.Via, Mode=TwoWay}"/>
+                                    <Label Grid.Row="3" Grid.Column="0" Content="Адресат" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding TrackRecord.Attn, Mode=TwoWay}"/>
+                                    <Label Grid.Row="4" Grid.Column="0" Content="Отправитель" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding TrackRecord.Sender, Mode=TwoWay}"/>
+                                </Grid>
+                            </DockPanel>
+                        </GroupBox>
+                        <DataGrid x:Name="inGrid"
                               AutoGenerateColumns="False"
                               EnableRowVirtualization="True"
-                              ItemsSource="{Binding Source={StaticResource inTrackViewSource}}" FrozenColumnCount="1">
+                              ItemsSource="{Binding TrackRecord.TrackRecords}" FrozenColumnCount="1" IsReadOnly="True" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="№" Binding="{Binding INo}"/>
                             <DataGridTextColumn Header="Дата" Binding="{Binding IDate}"/>
@@ -59,6 +95,7 @@
                             <DataGridTextColumn Header="Отправитель" Binding="{Binding Sender}"/>
                         </DataGrid.Columns>
                     </DataGrid>
+                    </DockPanel>
                 </TabItem.Content>
             </TabItem>
             <TabItem Name="unBox">

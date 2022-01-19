@@ -15,6 +15,7 @@ namespace Rosd.Wpf;
 /// </summary>
 public partial class App : Application
 {
+    public const string Title = "Rosd";
     public static IServiceProvider? ServiceProvider { get; private set; }
     public static IConfiguration? Configuration { get; private set; }
 

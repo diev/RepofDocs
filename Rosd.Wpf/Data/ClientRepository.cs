@@ -12,7 +12,7 @@ public class ClientRepository : IRepository<Client>
         throw new NotImplementedException();
     }
 
-    public Client Get(int id)
+    public Client? Get(int id)
     {
         throw new NotImplementedException();
     }
@@ -65,6 +65,21 @@ public class ClientRepository : IRepository<Client>
     }
 
     public void Update(Client t)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Add(List<Client> t)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Export(string filename)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Import(string filename)
     {
         throw new NotImplementedException();
     }

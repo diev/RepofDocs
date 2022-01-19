@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using Rosd.Wpf.Data;
+
+using System.Collections.ObjectModel;
 
 namespace Rosd.Wpf.ViewModels;
 
@@ -27,6 +29,67 @@ public class TrackRecord : ViewModelBase
     private string _oSubject = string.Empty;
 
     private ObservableCollection<TrackRecord> _records = new();
+
+    public static TrackRecord Load(Track? data)
+    {
+        if (data == null)
+        {
+            return new();
+        }
+
+        return new()
+        {
+            Id = data.Id,
+            IDate = data.IDate,
+            INo = data.INo,
+            Via = data.Via,
+            Sender = data.Sender,
+            SendDate = data.SendDate,
+            SendNo = data.SendNo,
+            Attn = data.Attn,
+            Client = data.Client,
+            INN = data.INN,
+            Content = data.Content,
+            Person = data.Person,
+            Notes = data.Notes,
+            JDate = data.JDate,
+            JNo = data.JNo,
+            JSubject = data.JSubject,
+            RDate = data.RDate,
+            ODate = data.ODate,
+            ONo = data.ONo,
+            Receiver = data.Receiver,
+            OSubject = data.OSubject,
+        };
+    }
+
+    public static Track Save(TrackRecord data)
+    {
+        return new()
+        {
+            Id = data.Id,
+            IDate = data.IDate,
+            INo = data.INo,
+            Via = data.Via,
+            Sender = data.Sender,
+            SendDate = data.SendDate,
+            SendNo = data.SendNo,
+            Attn = data.Attn,
+            Client = data.Client,
+            INN = data.INN,
+            Content = data.Content,
+            Person = data.Person,
+            Notes = data.Notes,
+            JDate = data.JDate,
+            JNo = data.JNo,
+            JSubject = data.JSubject,
+            RDate = data.RDate,
+            ODate = data.ODate,
+            ONo = data.ONo,
+            Receiver = data.Receiver,
+            OSubject = data.OSubject,
+        };
+    }
 
     public ObservableCollection<TrackRecord> TrackRecords
     {

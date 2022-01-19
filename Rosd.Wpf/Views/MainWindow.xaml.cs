@@ -25,7 +25,7 @@ public partial class MainWindow : Window
     {
         _context = context;
         InitializeComponent();
-        this.DataContext = new TrackViewModel();
+        //this.DataContext = new TrackViewModel();
 
         inTrackViewSource = (CollectionViewSource)FindResource(nameof(inTrackViewSource));
         jrlTrackViewSource = (CollectionViewSource)FindResource(nameof(jrlTrackViewSource));
