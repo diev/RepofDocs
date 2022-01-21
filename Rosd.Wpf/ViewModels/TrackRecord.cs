@@ -1,4 +1,4 @@
-﻿using Rosd.Wpf.Data;
+﻿using Rosd.Data.Entities;
 
 using System.Collections.ObjectModel;
 
@@ -28,7 +28,10 @@ public class TrackRecord : ViewModelBase
     private string _receiver = string.Empty;
     private string _oSubject = string.Empty;
 
-    private ObservableCollection<TrackRecord> _records = new();
+    private ObservableCollection<TrackRecord> _incRecords = new();
+    private ObservableCollection<TrackRecord> _jrlRecords = new();
+    private ObservableCollection<TrackRecord> _repRecords = new();
+    private ObservableCollection<TrackRecord> _outRecords = new();
 
     public static TrackRecord Load(Track? data)
     {
@@ -91,15 +94,54 @@ public class TrackRecord : ViewModelBase
         };
     }
 
-    public ObservableCollection<TrackRecord> TrackRecords
+    public ObservableCollection<TrackRecord> IncTrackRecords
     {
-        get => _records;
+        get => _incRecords;
         set 
         {
-            if (_records != value)
+            if (_incRecords != value)
             {
-                _records = value; 
-                OnPropertyChanged(nameof(TrackRecords));
+                _incRecords = value; 
+                OnPropertyChanged(nameof(IncTrackRecords));
+            }
+        }
+    }
+
+    public ObservableCollection<TrackRecord> JrlTrackRecords
+    {
+        get => _jrlRecords;
+        set
+        {
+            if (_jrlRecords != value)
+            {
+                _jrlRecords = value;
+                OnPropertyChanged(nameof(JrlTrackRecords));
+            }
+        }
+    }
+
+    public ObservableCollection<TrackRecord> RepTrackRecords
+    {
+        get => _repRecords;
+        set
+        {
+            if (_repRecords != value)
+            {
+                _repRecords = value;
+                OnPropertyChanged(nameof(RepTrackRecords));
+            }
+        }
+    }
+
+    public ObservableCollection<TrackRecord> OutTrackRecords
+    {
+        get => _outRecords;
+        set
+        {
+            if (_outRecords != value)
+            {
+                _outRecords = value;
+                OnPropertyChanged(nameof(OutTrackRecords));
             }
         }
     }

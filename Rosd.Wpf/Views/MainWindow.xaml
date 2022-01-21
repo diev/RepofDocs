@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         xmlns:local="clr-namespace:Rosd.Wpf"
-        xmlns:data="clr-namespace:Rosd.Wpf.Data" 
         xmlns:vm="clr-namespace:Rosd.Wpf.ViewModels"
         d:DataContext="{d:DesignInstance Type=vm:TrackViewModel}"
         mc:Ignorable="d"
@@ -13,35 +12,6 @@
     <Window.DataContext>
         <vm:TrackViewModel/>
     </Window.DataContext>
-    <Window.Resources>
-        <CollectionViewSource x:Key="inTrackViewSource" Filter="CollectionViewSource_inFilter">
-            <CollectionViewSource.SortDescriptions>
-                <scm:SortDescription PropertyName="INo"/>
-            </CollectionViewSource.SortDescriptions>
-        </CollectionViewSource>
-        <CollectionViewSource x:Key="jrlTrackViewSource" Filter="CollectionViewSource_jrlFilter">
-            <CollectionViewSource.SortDescriptions>
-                <scm:SortDescription PropertyName="JDate"/>
-                <scm:SortDescription PropertyName="JNo"/>
-            </CollectionViewSource.SortDescriptions>
-        </CollectionViewSource>
-        <CollectionViewSource x:Key="repTrackViewSource" Filter="CollectionViewSource_repFilter">
-            <CollectionViewSource.SortDescriptions>
-                <scm:SortDescription PropertyName="RDate"/>
-            </CollectionViewSource.SortDescriptions>
-        </CollectionViewSource>
-        <CollectionViewSource x:Key="outTrackViewSource" Filter="CollectionViewSource_outFilter">
-            <CollectionViewSource.SortDescriptions>
-                <scm:SortDescription PropertyName="ODate"/>
-                <scm:SortDescription PropertyName="ONo"/>
-            </CollectionViewSource.SortDescriptions>
-        </CollectionViewSource>
-        <CollectionViewSource x:Key="clientViewSource">
-            <CollectionViewSource.SortDescriptions>
-                <scm:SortDescription PropertyName="Title"/>
-            </CollectionViewSource.SortDescriptions>
-        </CollectionViewSource>
-    </Window.Resources>
     <Grid>
         <TabControl x:Name="tabControl">
             <TabItem Name="inBox">
@@ -86,7 +56,7 @@
                         <DataGrid x:Name="inGrid"
                               AutoGenerateColumns="False"
                               EnableRowVirtualization="True"
-                              ItemsSource="{Binding TrackRecord.TrackRecords}" FrozenColumnCount="1" IsReadOnly="True" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False">
+                              ItemsSource="{Binding TrackRecord.IncTrackRecords}" FrozenColumnCount="1" IsReadOnly="True" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="№" Binding="{Binding INo}"/>
                             <DataGridTextColumn Header="Дата" Binding="{Binding IDate}"/>
@@ -108,7 +78,7 @@
                     <DataGrid x:Name="unGrid"
                               AutoGenerateColumns="False"
                               EnableRowVirtualization="True"
-                              ItemsSource="{Binding Source={StaticResource inTrackViewSource}}" FrozenColumnCount="1">
+                              ItemsSource="{Binding TrackRecord.IncTrackRecords}" FrozenColumnCount="1">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="№" Binding="{Binding INo}"/>
                             <DataGridTextColumn Header="Дата" Binding="{Binding IDate}"/>
@@ -136,7 +106,7 @@
                     <DataGrid x:Name="jrlGrid"
                               AutoGenerateColumns="False"
                               EnableRowVirtualization="True"
-                              ItemsSource="{Binding Source={StaticResource jrlTrackViewSource}}" FrozenColumnCount="2">
+                              ItemsSource="{Binding TrackRecord.JrlTrackRecords}" FrozenColumnCount="2">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Вх.дата" Binding="{Binding JDate}"/>
                             <DataGridTextColumn Header="Вх.№" Binding="{Binding JNo}"/>
@@ -160,7 +130,7 @@
                     <DataGrid x:Name="repGrid"
                               AutoGenerateColumns="False"
                               EnableRowVirtualization="True"
-                              ItemsSource="{Binding Source={StaticResource repTrackViewSource}}" FrozenColumnCount="1">
+                              ItemsSource="{Binding TrackRecord.RepTrackRecords}" FrozenColumnCount="1">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Срок отв." Binding="{Binding RDate}"/>
                             <DataGridTextColumn Header="Исполнитель" Binding="{Binding Person}"/>
@@ -184,7 +154,7 @@
                     <DataGrid x:Name="outGrid"
                               AutoGenerateColumns="False"
                               EnableRowVirtualization="True"
-                              ItemsSource="{Binding Source={StaticResource outTrackViewSource}}" FrozenColumnCount="2">
+                              ItemsSource="{Binding TrackRecord.OutTrackRecords}" FrozenColumnCount="2">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Исх.дата" Binding="{Binding ODate}"/>
                             <DataGridTextColumn Header="Исх.№" Binding="{Binding ONo}"/>

@@ -1,4 +1,6 @@
-﻿using Rosd.Wpf.Data;
+﻿using Rosd.Data;
+using Rosd.Data.Entities;
+using Rosd.Data.Repositories;
 
 using System;
 using System.Windows;
@@ -13,7 +15,7 @@ public class ClientViewModel
     private readonly ICommand _editCommand;
     private readonly ICommand _deleteCommand;
 
-    private readonly ClientRepository _repository = new();
+    private readonly ClientRepository _repository = DataRepositories.GetClientRepository();
     private readonly Client _entity = new();
 
     public ClientRecord ClientRecord { get; set; } = new();
@@ -43,7 +45,7 @@ public class ClientViewModel
         {
             if (ClientRecord.Id <= 0)
             {
-                _repository.Add(_entity);
+                _repository.Create(_entity);
                 MessageBox.Show("New record successfully saved.");
             }
             else
@@ -87,7 +89,7 @@ public class ClientViewModel
         {
             try
             {
-                _repository.Remove(id);
+                _repository.Delete(id);
                 MessageBox.Show("Record successfully deleted.");
             }
             catch (Exception ex)
@@ -104,11 +106,16 @@ public class ClientViewModel
     public void GetAll()
     {
         ClientRecord.ClientRecords = new();
-        _repository.GetAll().ForEach(data => ClientRecord.ClientRecords.Add(new()
+        var all = _repository.GetAll();
+
+        foreach (var data in all)
         {
-            Id = data.Id,
-            INN = data.INN,
-            Title = data.Title
-        }));
+            ClientRecord.ClientRecords.Add(new()
+            {
+                Id = data.Id,
+                INN = data.INN,
+                Title = data.Title
+            });
+        }
     }
 }

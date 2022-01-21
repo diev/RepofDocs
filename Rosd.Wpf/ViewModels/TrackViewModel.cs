@@ -1,4 +1,5 @@
-﻿using Rosd.Wpf.Data;
+﻿using Rosd.Data;
+using Rosd.Data.Repositories;
 
 using System;
 using System.Windows;
@@ -15,7 +16,7 @@ public class TrackViewModel
     private readonly ICommand _saveCommand;
     private readonly ICommand _resetCommand;
 
-    private readonly TrackRepository _repository = new();
+    private readonly TrackRepository _repository = DataRepositories.GetTrackRepository();
 
     public TrackViewModel()
     {
@@ -37,6 +38,12 @@ public class TrackViewModel
     public ICommand ResetCommand => _resetCommand;
 
     public TrackRecord TrackRecord { get; set; } = new();
+
+    public TrackFilter Filter
+    { 
+        get => _repository.Filter;
+        set => _repository.Filter = value;
+    }
 
     public void AddData()
     {
@@ -62,7 +69,7 @@ public class TrackViewModel
         {
             try
             {
-                _repository.Remove(id);
+                _repository.Delete(id);
                 MessageBox.Show("Record successfully deleted.", App.Title);
             }
             catch (Exception ex)
@@ -84,7 +91,7 @@ public class TrackViewModel
         {
             if (TrackRecord.Id <= 0)
             {
-                _repository.Add(data);
+                _repository.Create(data);
                 MessageBox.Show("New record successfully added.", App.Title);
             }
             else
@@ -112,7 +119,12 @@ public class TrackViewModel
 
     public void GetAll()
     {
-        TrackRecord.TrackRecords = new();
-        _repository.GetAll().ForEach(data => TrackRecord.TrackRecords.Add(TrackRecord.Load(data))); //TODO simplify
+        TrackRecord.IncTrackRecords = new();
+        var all = _repository.GetAll();
+
+        foreach (var data in all)
+        {
+            TrackRecord.IncTrackRecords.Add(TrackRecord.Load(data));
+        }
     }
 }

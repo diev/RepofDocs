@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-using Rosd.Wpf.Data;
-using Rosd.Wpf.ViewModels;
+﻿using Rosd.Data.Entities;
 
 using System.Windows;
 using System.Windows.Data;
@@ -13,35 +10,36 @@ namespace Rosd.Wpf;
 /// </summary>
 public partial class MainWindow : Window
 {
-    private readonly ApplicationDbContext _context;
+    //private readonly RosdDbContext _context;
 
-    private readonly CollectionViewSource inTrackViewSource;
-    private readonly CollectionViewSource jrlTrackViewSource;
-    private readonly CollectionViewSource repTrackViewSource;
-    private readonly CollectionViewSource outTrackViewSource;
-    //private readonly CollectionViewSource clientViewSource;
+    //private readonly CollectionViewSource inTrackViewSource;
+    //private readonly CollectionViewSource jrlTrackViewSource;
+    //private readonly CollectionViewSource repTrackViewSource;
+    //private readonly CollectionViewSource outTrackViewSource;
+    ////private readonly CollectionViewSource clientViewSource;
 
-    public MainWindow(ApplicationDbContext context)
+    //public MainWindow(RosdDbContext context)
+    public MainWindow()
     {
-        _context = context;
+        //_context = context;
         InitializeComponent();
         //this.DataContext = new TrackViewModel();
 
-        inTrackViewSource = (CollectionViewSource)FindResource(nameof(inTrackViewSource));
-        jrlTrackViewSource = (CollectionViewSource)FindResource(nameof(jrlTrackViewSource));
-        repTrackViewSource = (CollectionViewSource)FindResource(nameof(repTrackViewSource));
-        outTrackViewSource = (CollectionViewSource)FindResource(nameof(outTrackViewSource));
+        //inTrackViewSource = (CollectionViewSource)FindResource(nameof(inTrackViewSource));
+        //jrlTrackViewSource = (CollectionViewSource)FindResource(nameof(jrlTrackViewSource));
+        //repTrackViewSource = (CollectionViewSource)FindResource(nameof(repTrackViewSource));
+        //outTrackViewSource = (CollectionViewSource)FindResource(nameof(outTrackViewSource));
         //clientViewSource = (CollectionViewSource)FindResource(nameof(clientViewSource));
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        _context.Tracks.Load();
+        //_context.Tracks.Load();
 
-        inTrackViewSource.Source = _context.Tracks.Local.ToObservableCollection();
-        jrlTrackViewSource.Source = _context.Tracks.Local.ToObservableCollection();
-        repTrackViewSource.Source = _context.Tracks.Local.ToObservableCollection();
-        outTrackViewSource.Source = _context.Tracks.Local.ToObservableCollection();
+        //inTrackViewSource.Source = _context.Tracks.Local.ToObservableCollection();
+        //jrlTrackViewSource.Source = _context.Tracks.Local.ToObservableCollection();
+        //repTrackViewSource.Source = _context.Tracks.Local.ToObservableCollection();
+        //outTrackViewSource.Source = _context.Tracks.Local.ToObservableCollection();
 
         //_context.Clients.Load();
 

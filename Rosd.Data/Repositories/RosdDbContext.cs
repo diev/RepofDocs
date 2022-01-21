@@ -1,26 +1,39 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-using System;
-using System.IO;
+using Rosd.Data.Conventions;
+using Rosd.Data.Entities;
+
 using System.Text.RegularExpressions;
 
-namespace Rosd.Wpf.Data;
+namespace Rosd.Data.Repositories;
 
-public class ApplicationDbContext : DbContext
+public partial class RosdDbContext : DbContext
 {
-    public ApplicationDbContext()
+    private readonly IDatabaseConventionConverter? _convention;
+
+    public RosdDbContext()
+        : base()
     {
     }
 
-    public ApplicationDbContext(DbContextOptions options) : base(options)
+    public RosdDbContext(DbContextOptions<RosdDbContext> options)
+        : base(options)
     {
         Database.EnsureDeleted();
         Database.EnsureCreated();
     }
 
-    public DbSet<Track> Tracks { get; set; } = null!;
-    //public DbSet<Client> Clients { get; set; } = null!;
-    public DbSet<LastTaken> LastTaken { get; set; } = null!;
+    public RosdDbContext(DbContextOptions<RosdDbContext> options, IDatabaseConventionConverter convention)
+        : base(options)
+    {
+        _convention = convention;
+    }
+
+    // Using "= null!;" to remove the compiler warning.
+    // Assume that the DbContext constructor will populate these properties.
+
+    public virtual DbSet<Track> Tracks { get; set; } = null!;
+    public virtual DbSet<LastNum> LastNums { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
         optionsBuilder.UseSqlite("Data Source=Tracks.db");
@@ -28,7 +41,52 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        string demoData = App.Configuration[nameof(demoData)];
+        if (modelBuilder == null)
+        {
+            throw new ArgumentNullException(nameof(modelBuilder), $"{nameof(modelBuilder)} is null.");
+        }
+
+#nullable disable // Assume that the DbContext constructor will populate these properties.
+
+        modelBuilder.HasAnnotation("Relational:Collation", "Cyrillic_General_CI_AS"); // default: "SQL_Latin1_General_CP1_CI_AS"
+
+        modelBuilder.Entity<Track>(entity =>
+        {
+            entity.Property(e => e.IDate).IsUnicode(false);
+            entity.Property(e => e.SendDate).IsUnicode(false);
+            entity.Property(e => e.INN).IsUnicode(false);
+            entity.Property(e => e.JDate).IsUnicode(false);
+            entity.Property(e => e.JNo).IsUnicode(false);
+            entity.Property(e => e.RDate).IsUnicode(false);
+            entity.Property(e => e.ODate).IsUnicode(false);
+            entity.Property(e => e.ONo).IsUnicode(false);
+        });
+
+#nullable enable
+
+        //i"Id",
+        //"IDate",
+        //i"INo",
+        //"Via",*
+        //"Sender",*
+        //"SendDate",
+        //"SendNo",
+        //"Attn",*
+        //"Client",*
+        //"INN",*
+        //"Content",
+        //"Person",*
+        //"Notes",
+        //"JDate",
+        //"JNo",
+        //"JSubject",
+        //"RDate",
+        //"ODate",
+        //"ONo",
+        //"Receiver",*
+        //"OSubject"
+
+        string demoData = ""; //TODO App.Configuration[nameof(demoData)];
         if (File.Exists(demoData))
         {
             modelBuilder.Entity<Track>().HasData(SeedDemoData(demoData));
@@ -40,11 +98,24 @@ public class ApplicationDbContext : DbContext
         //    modelBuilder.Entity<Client>().HasData(SeedClientData(clientsPath));
         //}
 
-        modelBuilder.Entity<LastTaken>().HasData(
-            new LastTaken { Id = DateTime.Today.Year, INo = 0, JNo = 0, ONo = 0 });
+        modelBuilder.Entity<LastNum>().HasData(new LastNum
+        {
+            Id = DateTime.Today.Year,
+            INo = 0,
+            JNo = 0,
+            ONo = 0
+        });
+
+        // Allow subclasses to override conventions
+        OnModelCreatingPartial(modelBuilder);
+
+        // Apply Conventions
+        //_convention?.SetConvention(modelBuilder); //TODO
 
         base.OnModelCreating(modelBuilder);
     }
+
+    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
     private static Client[] SeedClientData(string path)
     {
@@ -92,7 +163,7 @@ public class ApplicationDbContext : DbContext
         foreach (var line in lines)
         {
             var items = line.Split('\t');
-            int ino = int.TryParse(items[0], out int i)? i: 0;
+            int ino = int.TryParse(items[0], out int i) ? i : 0;
 
             if (id < 75)
             {
@@ -153,4 +224,4 @@ public class ApplicationDbContext : DbContext
 
         return data;
     }
-} 
+}
